@@ -14,6 +14,16 @@
             markdown.enable = true;
             json.enable = true;
           };
+          options = {
+            autoindent = true;
+            cursorline = true;
+            expandtab = true;
+            number = true;
+            relativenumber = true;
+            shiftwidth = 2;
+            softtabstop = 2;
+            wrap = false;
+          };
         };
       };
     };
