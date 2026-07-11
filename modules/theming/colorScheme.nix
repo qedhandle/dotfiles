@@ -11,11 +11,10 @@
 
   den.policies.collect-ports = { user, ... }:
     let inherit (den.lib.policy) pipe; in [
-      (pipe.from "colorScheme" [
-        (pipe.fold (acc: schemes: acc ++ schemes) [])
+      (pipe.from "colorSchemePorts" [
         (pipe.for lib.uniqueStrings)
       ])
     ];
 
-  den.default.includes = [ den.policies.collect-ports ];
+  den.schema.user.includes = [ den.policies.collect-ports ];
 }

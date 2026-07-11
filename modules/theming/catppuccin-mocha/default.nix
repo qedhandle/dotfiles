@@ -33,7 +33,7 @@ let
 in
 {
   narbix.colorScheme.provides.catppuccin-mocha = {
-    homeManager = { colorSchemePorts, lib, self', ... }:
+    homeManager = { colorSchemePorts, ... }:
       let
         hasPort = name: builtins.pathExists ./_${name}.nix;
         validPorts = builtins.filter hasPort colorSchemePorts;

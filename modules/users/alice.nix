@@ -11,6 +11,7 @@
         nushell
         git
         nvf
+        nvf._.nerd-signs
         nix-helper
         nix-output-monitor
         nnn

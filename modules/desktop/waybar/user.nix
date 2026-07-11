@@ -1,4 +1,4 @@
-{ narbix, inputs, ... }:
+{ inputs, ... }:
 
 let
   inherit (inputs.self.lib) mkIcon;

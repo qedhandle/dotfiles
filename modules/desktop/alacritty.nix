@@ -1,4 +1,4 @@
-{ inputs, narbix, ... }:
+{ narbix, ... }:
 
 {
   narbix.alacritty = {
