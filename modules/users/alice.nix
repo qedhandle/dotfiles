@@ -21,6 +21,7 @@
         colorScheme._.catppuccin-mocha
         wiremix
         firefox
+        miro
       ]);
 
     nixos = { user, ... }: { pkgs, ... }: {
