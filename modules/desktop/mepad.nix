@@ -11,6 +11,7 @@
       hyprshutdown
       hyprpicker
       hypridle
+      hyprsunset
       waybar._.basic-bar
       (waybar._.hyprland-workspaces { position = "left"; })
       mako
