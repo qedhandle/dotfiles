@@ -15,7 +15,7 @@
         smallSize = lib.min (size - 1) (builtins.floor (size * 0.8 + 0.5));
       in
       {
-        home.file.".config/hypr/hyprtoolkit.conf" = {
+        xdg.configFile."hypr/hyprtoolkit.conf" = {
           enable = true;
           text = let size = config.fontScheme.defaultSize; in
             ''

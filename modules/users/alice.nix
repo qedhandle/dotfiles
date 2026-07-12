@@ -21,7 +21,7 @@
         colorScheme._.catppuccin-mocha
         wiremix
         firefox
-        miro
+        zathura # PDF viewer
       ]);
 
     nixos = { user, ... }: { pkgs, ... }: {

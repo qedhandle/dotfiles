@@ -1,3 +1,5 @@
+# Seems to be broken :<
+# Uses rfd crate which uses dlopen to search for libdbus
 { ... }:
 
 {
@@ -56,6 +58,12 @@
             + mouseBindsText
             + "\n\n# Settings\n"
             + settingsText;
+        };
+        xdg.desktopEntries.miro = {
+          name = "miro";
+          type = "Application";
+          exec = lib.getExe pkgs.miro;
+          categories = [ "Office" ];
         };
       };
     };

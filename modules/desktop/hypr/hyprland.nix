@@ -10,12 +10,17 @@
 
     colorSchemePorts = [ "hyprland" ];
 
-    homeManager = { keybinds, config, lib, ... }: {
+    homeManager = { keybinds, config, pkgs, lib, ... }: {
       home.sessionVariables = {
         XDG_CURRENT_DESKTOP = "Hyprland";
         XDG_SESSION_TYPE = "wayland";
         XDG_SESSION_DESKTOP = "Hyprland";
       };
+
+      home.packages = with pkgs; [
+        # xdg-desktop-portal-hyprland does not have a file chooser
+        xdg-desktop-portal-gtk
+      ];
 
       wayland.windowManager.hyprland = {
         enable = true;
