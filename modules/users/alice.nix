@@ -16,6 +16,8 @@
         nix-output-monitor
         nnn
         fastfetch
+        direnv
+        direnv._.nushell
       ] ++ lib.optionals user.graphical [
         mepad
         colorScheme._.catppuccin-mocha
