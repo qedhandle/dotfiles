@@ -10,14 +10,15 @@
       programs.nvf = {
         enable = true;
         settings.vim = {
-          lsp.enable = true;
+          autocomplete.blink-cmp.enable = true;
+          lsp = {
+            enable = true;
+            formatOnSave = true;
+          };
           languages = {
             nix.enable = true;
-            nix.treesitter.enable = true;
             markdown.enable = true;
-            markdown.treesitter.enable = true;
             json.enable = true;
-            json.treesitter.enable = true;
           };
           options = {
             autoindent = true;
