@@ -15,9 +15,9 @@
     };
 
     homeManager = { config, ... }: {
-      desktop = {
-        volumeUp = "wpctl set-volume @DEFAULT_AUDIO_SINK@ ${builtins.toString config.desktop.volumeStep}%+";
-        volumeDown = "wpctl set-volume @DEFAULT_AUDIO_SINK@ ${builtins.toString config.desktop.volumeStep}%-";
+      desktop.commands = {
+        volumeUp = "wpctl set-volume @DEFAULT_AUDIO_SINK@ ${builtins.toString config.desktop.commands.volumeStep}%+";
+        volumeDown = "wpctl set-volume @DEFAULT_AUDIO_SINK@ ${builtins.toString config.desktop.commands.volumeStep}%-";
         toggleMute = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
       };
     };

@@ -69,12 +69,12 @@
       // lib.optionalAttrs user.graphical {
         desktop = {
           # Launch on current workspace
-          audioControl =
+          apps.audioControl =
             let
               cmd = config.desktop.terminalExec (lib.getExe pkgs.wiremix);
             in
             "hyprctl dispatch ${lib.escapeShellArg "hl.dsp.exec_cmd(${lib.generators.toLua { } cmd})"}";
-          fileExplorer = config.desktop.terminalExec (lib.getExe config.programs.nnn.package);
+          apps.fileExplorer = config.desktop.terminalExec (lib.getExe config.programs.nnn.package);
         };
 
         wayland.windowManager.hyprland.settings = {

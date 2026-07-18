@@ -7,7 +7,8 @@
       desktop
     ];
 
-    homeManager = { config, lib, ... }:
+    homeManager =
+      { config, lib, ... }:
       let
         inherit (lib.generators) mkLuaInline toLua;
         mkLuaStr = s: mkLuaInline (toLua { multiline = false; } s);
@@ -17,11 +18,7 @@
           u = "K";
           d = "J";
         };
-        strOrPkg = value:
-          if builtins.isString value then
-            value
-          else
-            lib.getExe value;
+        strOrPkg = value: if builtins.isString value then value else lib.getExe value;
       in
       {
         wayland.windowManager.hyprland.settings = {
@@ -36,19 +33,25 @@
           };
           bind =
             let
-              mkBind = { bind, dsp, flags ? null }:
+              mkBind =
+                {
+                  bind,
+                  dsp,
+                  flags ? null,
+                }:
                 {
                   _args = [
                     (mkLuaStr bind)
                     (mkLuaInline dsp)
-                  ] ++ lib.optional (flags != null) flags;
+                  ]
+                  ++ lib.optional (flags != null) flags;
                 };
-              mkOptionalBind = bind: target:
-                lib.optional (target != null)
-                  (mkBind {
-                    inherit bind;
-                    dsp = "hl.dsp.exec_cmd(${toLua {} (strOrPkg target)})";
-                  });
+              mkOptionalBind =
+                bind: target:
+                lib.optional (target != null) (mkBind {
+                  inherit bind;
+                  dsp = "hl.dsp.exec_cmd(${toLua { } (strOrPkg target)})";
+                });
             in
             [
               (mkBind {
@@ -75,24 +78,32 @@
                 bind = "SUPER + SHIFT + Tab";
                 dsp = "hl.dsp.focus({ workspace = \"-1\" })";
               })
+              (mkBind {
+                bind = "SUPER + SHIFT + H";
+                dsp = "hl.dsp.window.move({ workspace = \"-1\" })";
+              })
+              (mkBind {
+                bind = "SUPER + SHIFT + L";
+                dsp = "hl.dsp.window.move({ workspace = \"+1\" })";
+              })
             ]
-            ++
-            lib.mapAttrsToList
-              (dir: key: mkBind {
+            ++ lib.mapAttrsToList (
+              dir: key:
+              mkBind {
                 bind = "ALT + ${key}";
-                dsp = "hl.dsp.focus({ direction = ${toLua {} dir} })";
-              })
-              dirKeys
-            ++
-            lib.mapAttrsToList
-              (dir: key: mkBind {
+                dsp = "hl.dsp.focus({ direction = ${toLua { } dir} })";
+              }
+            ) dirKeys
+            ++ lib.mapAttrsToList (
+              dir: key:
+              mkBind {
                 bind = "SUPER + ${key}";
-                dsp = "hl.dsp.window.move({ direction = ${toLua {} dir} })";
-              })
-              dirKeys
-            ++
-            builtins.map
-              (i: mkBind (
+                dsp = "hl.dsp.window.move({ direction = ${toLua { } dir} })";
+              }
+            ) dirKeys
+            ++ builtins.map (
+              i:
+              mkBind (
                 let
                   wsKey = builtins.toString (lib.mod i 10);
                 in
@@ -100,22 +111,20 @@
                   bind = "SUPER + ${wsKey}";
                   dsp = "hl.dsp.focus({ workspace = ${builtins.toString i} })";
                 }
-              ))
-              (lib.range 1 10)
-            ++
-            lib.concatLists
-              (lib.mapAttrsToList
-                (name: value: mkOptionalBind name value)
-                {
-                  "XF86MonBrightnessUp" = config.desktop.brightnessUp;
-                  "XF86MonBrightnessDown" = config.desktop.brightnessDown;
-                  "XF86AudioRaiseVolume" = config.desktop.volumeUp;
-                  "XF86AudioLowerVolume" = config.desktop.volumeDown;
-                  "XF86AudioMute" = config.desktop.toggleMute;
-                  "SUPER + T" = config.desktop.terminal;
-                  "SUPER + R" = config.desktop.launcher;
-                  "SUPER + E" = config.desktop.fileExplorer;
-                });
+              )
+            ) (lib.range 1 10)
+            ++ lib.concatLists (
+              lib.mapAttrsToList (name: value: mkOptionalBind name value) {
+                "XF86MonBrightnessUp" = config.desktop.commands.brightnessUp;
+                "XF86MonBrightnessDown" = config.desktop.commands.brightnessDown;
+                "XF86AudioRaiseVolume" = config.desktop.commands.volumeUp;
+                "XF86AudioLowerVolume" = config.desktop.commands.volumeDown;
+                "XF86AudioMute" = config.desktop.commands.toggleMute;
+                "SUPER + T" = config.desktop.apps.terminal;
+                "SUPER + R" = config.desktop.apps.launcher;
+                "SUPER + E" = config.desktop.apps.fileExplorer;
+              }
+            );
         };
       };
   };

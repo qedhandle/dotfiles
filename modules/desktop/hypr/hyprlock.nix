@@ -2,7 +2,10 @@
 
 {
   narbix.hyprlock = {
-    includes = with narbix; [ desktop hyprland ];
+    includes = with narbix; [
+      desktop
+      hyprland
+    ];
 
     colorSchemePorts = [ "hyprlock" ];
 
@@ -52,7 +55,7 @@
         };
       };
 
-      desktop.lock = "hyprlock";
+      desktop.commands.lock = "hyprlock";
     };
   };
 }

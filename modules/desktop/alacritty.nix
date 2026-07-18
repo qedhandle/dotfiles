@@ -21,7 +21,7 @@
         };
       };
 
-      desktop.terminal = lib.mkDefault config.programs.alacritty.package;
+      desktop.apps.terminal = lib.mkDefault config.programs.alacritty.package;
       desktop.terminalExec = lib.mkDefault (cmd: "alacritty -e ${cmd}");
     };
 
