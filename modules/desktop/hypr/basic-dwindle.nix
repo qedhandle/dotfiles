@@ -59,14 +59,6 @@
                 dsp = "hl.dsp.window.close({ window = \"activewindow\" })";
               })
               (mkBind {
-                bind = "ALT + Tab";
-                dsp = "hl.dsp.window.cycle_next({ next = true })";
-              })
-              (mkBind {
-                bind = "ALT + SHIFT + Tab";
-                dsp = "hl.dsp.window.cycle_next({next = false })";
-              })
-              (mkBind {
                 bind = "SUPER + Space";
                 dsp = "hl.dsp.window.fullscreen({ mode = \"maximized\", action = \"toggle\" })";
               })
@@ -115,6 +107,8 @@
             ) (lib.range 1 10)
             ++ lib.concatLists (
               lib.mapAttrsToList (name: value: mkOptionalBind name value) {
+                "ALT + Tab" = config.desktop.commands.focusNextWindow;
+                "ALT + SHIFT + Tab" = config.desktop.commands.focusPrevWindow;
                 "XF86MonBrightnessUp" = config.desktop.commands.brightnessUp;
                 "XF86MonBrightnessDown" = config.desktop.commands.brightnessDown;
                 "XF86AudioRaiseVolume" = config.desktop.commands.volumeUp;
@@ -125,6 +119,10 @@
                 "SUPER + E" = config.desktop.apps.fileExplorer;
               }
             );
+        };
+        desktop.commands = {
+          focusNextWindow = lib.mkDefault "hyprctl dispatch \"hl.dsp.window.cycle_next({ next = true })\"";
+          focusPrevWindow = lib.mkDefault "hyprctl dispatch \"hl.dsp.window.cycle_next({ next = false })\"";
         };
       };
   };

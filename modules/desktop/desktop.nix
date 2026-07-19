@@ -60,6 +60,16 @@
             description = "The command to toggle mute.";
             default = null;
           };
+          focusNextWindow = lib.mkOption {
+            type = with lib.types; nullOr str;
+            description = "The command to focus the next window.";
+            default = null;
+          };
+          focusPrevWindow = lib.mkOption {
+            type = with lib.types; nullOr str;
+            description = "The command to focus the previous window.";
+            default = null;
+          };
         };
         startupApps = lib.mkOption {
           type = with lib.types; listOf (either str package);
