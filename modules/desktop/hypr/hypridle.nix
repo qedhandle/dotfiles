@@ -3,7 +3,12 @@
 {
   # FIXME: idle not working
   narbix.hypridle = {
-    includes = with narbix; [ desktop hyprland hyprlock brightnessctl ];
+    includes = with narbix; [
+      desktop
+      hyprland
+      hyprlock
+      brightnessctl
+    ];
 
     homeManager = { config, ... }: {
       services.hypridle = {
@@ -14,7 +19,7 @@
             before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
           };
-          listeners = [
+          listener = [
             {
               timeout = 120;
               on-timeout = "brightnessctl -s set 10";
