@@ -25,6 +25,7 @@
           fastfetch
           direnv
           direnv._.nushell
+          starship._.powerline
         ]
         ++ lib.optionals user.graphical [
           mepad

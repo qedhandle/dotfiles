@@ -55,7 +55,7 @@
             in
             [
               (mkBind {
-                bind = "CTRL + ALT + W";
+                bind = "SUPER + Q";
                 dsp = "hl.dsp.window.close({ window = \"activewindow\" })";
               })
               (mkBind {
@@ -89,7 +89,7 @@
             ++ lib.mapAttrsToList (
               dir: key:
               mkBind {
-                bind = "SUPER + ${key}";
+                bind = "ALT + SHIFT + ${key}";
                 dsp = "hl.dsp.window.move({ direction = ${toLua { } dir} })";
               }
             ) dirKeys
@@ -117,6 +117,7 @@
                 "SUPER + T" = config.desktop.apps.terminal;
                 "SUPER + R" = config.desktop.apps.launcher;
                 "SUPER + E" = config.desktop.apps.fileExplorer;
+                "SUPER + L" = config.desktop.commands.lock;
               }
             );
         };
